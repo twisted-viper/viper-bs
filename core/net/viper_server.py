@@ -20,6 +20,8 @@ try:
 except:
     pass
 
+def running():
+    print 'Server Started'
 
 class ViperBalanceServer():
     
@@ -28,9 +30,8 @@ class ViperBalanceServer():
     
     def start(self):
         logger = ViperLogger.getLogger()
-        print sys.modules['twisted.internet.reactor']
-        logger.error()
-        logger.debug()
+        logger.info('Selector Type:' + str(sys.modules['twisted.internet.reactor']))
         reactor.listenTCP(SERVER_PORT, serverFactory())
+        reactor.callWhenRunning(running)
         reactor.run()
     

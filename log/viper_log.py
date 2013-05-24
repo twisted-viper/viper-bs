@@ -15,7 +15,7 @@ class ViperLogger():
     
     def __init__(self):
         self.VIPER_LOGGER = logging.getLogger()
-        handler = logging.FileHandler(os.path.join(LOG['path'],'error.log'))
+        handler = logging.FileHandler(os.path.join(LOG['path'], 'error.log'))
         self.VIPER_LOGGER.addHandler(handler)
         self.VIPER_LOGGER.setLevel(LOG['level'])
     
@@ -24,20 +24,20 @@ class ViperLogger():
         timeStr = time.strftime('%Y-%m-%d %H:%M:%S', now)
         return '[' + timeStr + '] '
   
-    def error(self):
-        self.VIPER_LOGGER.error(self.getTimeStame() + "ERROR: This is an error message")
+    def error(self, msg):
+        self.VIPER_LOGGER.error(self.getTimeStame() + "ERROR: " + msg)
         
-    def critical(self):
-        self.VIPER_LOGGER.critical(self.getTimeStame() + "CRITIAL: This is an critical message")
+    def critical(self, msg):
+        self.VIPER_LOGGER.critical(self.getTimeStame() + "CRITIAL: " + msg)
         
-    def warning(self):
-        self.VIPER_LOGGER.warning(self.getTimeStame() + "WARNING: This is an warning message")
+    def warning(self, msg):
+        self.VIPER_LOGGER.warning(self.getTimeStame() + "WARNING: " + msg)
         
-    def debug(self):
-        self.VIPER_LOGGER.debug(self.getTimeStame() + "DEBUG: This is an debug message")
+    def debug(self, msg):
+        self.VIPER_LOGGER.debug(self.getTimeStame() + "DEBUG: " + msg)
     
-    def info(self):
-        self.VIPER_LOGGER.info(self.getTimeStame() + "INFO: This is an info message")
+    def info(self, msg):
+        self.VIPER_LOGGER.info(self.getTimeStame() + "INFO: " + msg)
         
         
     @staticmethod
