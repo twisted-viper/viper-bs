@@ -5,6 +5,7 @@ Created on May 24, 2013
 @author: HP
 '''
 
+from log.viper_log import ViperLogger
 from server import serverFactory
 from settings import SERVER_PORT
 from twisted.internet import reactor
@@ -26,7 +27,10 @@ class ViperBalanceServer():
         pass
     
     def start(self):
+        logger = ViperLogger.getLogger()
         print sys.modules['twisted.internet.reactor']
+        logger.error()
+        logger.debug()
         reactor.listenTCP(SERVER_PORT, serverFactory())
         reactor.run()
     
