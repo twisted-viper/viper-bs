@@ -6,7 +6,6 @@ Created on May 24, 2013
 '''
 
 from log.viper_log import ViperLogger
-from server import serverFactory
 from settings import SERVER_PORT
 from twisted.internet import reactor
 from twisted.internet.protocol import Factory
@@ -20,8 +19,26 @@ try:
 except:
     pass
 
-def running():
-    print 'Server Started'
+class ViperBalanceServerProtocol(LineReceiver):
+    def __init__(self):
+        print type(reactor)
+        
+    def connectionMade(self):
+        print 'connectionMade'
+    
+    def connectionLost(self, reason):
+        print 'connectionLost'
+        
+    def lineReceived(self, line):
+        print line
+
+        
+class ViperBalanceServerFactory(Factory):
+    def buildProtocol(self, addr):
+        return ViperBalanceServerProtocol()
+
+def viperBalanceServerRunning():
+    print 'Viper Balance Server Started'
 
 class ViperBalanceServer():
     
@@ -31,7 +48,7 @@ class ViperBalanceServer():
     def start(self):
         logger = ViperLogger.getLogger()
         logger.info('Selector Type:' + str(sys.modules['twisted.internet.reactor']))
-        reactor.listenTCP(SERVER_PORT, serverFactory())
-        reactor.callWhenRunning(running)
+        reactor.listenTCP(SERVER_PORT, ViperBalanceServerFactory())
+        reactor.callWhenRunning(viperBalanceServerRunning)
         reactor.run()
     
