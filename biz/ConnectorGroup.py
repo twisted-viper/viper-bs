@@ -6,8 +6,9 @@ Created on 2013-5-26
 
 from log.viper_log import ViperLogger
 from twisted.internet import reactor
+import time
 
-CHECK_CONNECTOR_SERVER_INTERVAL = 60
+CHECK_CONNECTOR_SERVER_INTERVAL = 60 * 5
 logger = ViperLogger.getLogger()
 
 class ConnectorGroup():
@@ -43,7 +44,8 @@ class ConnectorGroup():
         logger.debug('Check Connector server status...')
         for key in self.connectorDic:
             connectorServer = self.connectorDic[key]
-            if not connectorServer.isActive:
+            nowTime = time.time()
+            if not connectorServer.isActive or nowTime - connectorServer.getPingTime() > CHECK_CONNECTOR_SERVER_INTERVAL:
                 connectorServer.closeConnecton()
                 
         reactor.callLater(CHECK_CONNECTOR_SERVER_INTERVAL, self.checkConnectorServerStatus)

@@ -31,5 +31,10 @@ def onLineReceived(protocol, line):
     logger.debug('Message Received ' + line)
     message = json.loads(line)
     connectorId = str(protocol.transport.getPeer())
-    MESSAGE_ACTION.get(message['name'])(connectorId, message)
+    messageParse = MESSAGE_ACTION.get(message['name'])
+    if messageParse == None:
+        logger.error('Unrecognized message received ' + message['name'])
+        protocol.transport.loseConnection()
+    else:
+        messageParse(connectorId, message)
     
