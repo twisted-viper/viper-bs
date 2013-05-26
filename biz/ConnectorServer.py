@@ -5,8 +5,18 @@ Created on 2013-5-26
 '''
 
 class ConnectorServer():
-    def __init__(self,protocol):
-        self.id = str(protocol.transport.getPeer())
+    def __init__(self, protocol):
+        self.protocol = protocol
+        self.isActive = False
         
     def getId(self):
-        return self.id
+        return str(self.protocol.transport.getPeer())
+    
+    def setActive(self, active):
+        self.isActive = active
+    
+    def closeConnecton(self):
+        self.protocol.transport.loseConnection()
+        
+    def isActive(self):
+        return self.isActive

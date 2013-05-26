@@ -8,5 +8,5 @@ from core.net.viper_server import ViperBalanceServer
 
 
 if __name__ =='__main__' :
-    viperBalanceServer = ViperBalanceServer()
+    viperBalanceServer = ViperBalanceServer.getInstance()
     viperBalanceServer.start()
