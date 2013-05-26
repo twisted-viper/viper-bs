@@ -25,19 +25,29 @@ class ViperLogger():
         return '[' + timeStr + '] '
   
     def error(self, msg):
-        self.VIPER_LOGGER.error(self.getTimeStame() + "ERROR: " + msg)
+        outputMsg = self.getTimeStame() + "ERROR: " + msg
+        print outputMsg
+        self.VIPER_LOGGER.error(outputMsg)
         
     def critical(self, msg):
-        self.VIPER_LOGGER.critical(self.getTimeStame() + "CRITIAL: " + msg)
+        outputMsg = self.getTimeStame() + "CRITIAL: " + msg
+        print outputMsg
+        self.VIPER_LOGGER.critical(outputMsg)
         
     def warning(self, msg):
-        self.VIPER_LOGGER.warning(self.getTimeStame() + "WARNING: " + msg)
+        outputMsg = self.getTimeStame() + "WARNING: " + msg
+        print outputMsg
+        self.VIPER_LOGGER.warning(outputMsg)
         
     def debug(self, msg):
-        self.VIPER_LOGGER.debug(self.getTimeStame() + "DEBUG: " + msg)
+        outputMsg = self.getTimeStame() + "DEBUG: " + msg
+        print outputMsg
+        self.VIPER_LOGGER.debug(outputMsg)
     
     def info(self, msg):
-        self.VIPER_LOGGER.info(self.getTimeStame() + "INFO: " + msg)
+        outputMsg = self.getTimeStame() + "INFO: " + msg
+        print outputMsg
+        self.VIPER_LOGGER.info(outputMsg)
         
         
     @staticmethod

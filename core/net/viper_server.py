@@ -1,10 +1,12 @@
-#coding:utf-8
+# coding:utf-8
 '''
 Created on May 24, 2013
 
 @author: HP
 '''
 
+from core.net.viper_callback import onViperBalanceServerRunning, \
+    onConectorConnectionMade, onConectorConnectionLost, onLineReceived
 from log.viper_log import ViperLogger
 from settings import SERVER_PORT
 from twisted.internet import reactor
@@ -21,24 +23,22 @@ except:
 
 class ViperBalanceServerProtocol(LineReceiver):
     def __init__(self):
-        print type(reactor)
+        pass
         
     def connectionMade(self):
-        print 'connectionMade'
+        onConectorConnectionMade(self)
     
     def connectionLost(self, reason):
-        print 'connectionLost'
+        onConectorConnectionLost(self, reason)
         
     def lineReceived(self, line):
-        print line
+        onLineReceived(self,line)
 
         
 class ViperBalanceServerFactory(Factory):
     def buildProtocol(self, addr):
         return ViperBalanceServerProtocol()
 
-def viperBalanceServerRunning():
-    print 'Viper Balance Server Started'
 
 class ViperBalanceServer():
     
@@ -47,8 +47,8 @@ class ViperBalanceServer():
     
     def start(self):
         logger = ViperLogger.getLogger()
-        logger.info('Selector Type:' + str(sys.modules['twisted.internet.reactor']))
+        logger.info('Selector Type:' + str(type(reactor)))
         reactor.listenTCP(SERVER_PORT, ViperBalanceServerFactory())
-        reactor.callWhenRunning(viperBalanceServerRunning)
+        reactor.callWhenRunning(onViperBalanceServerRunning)
         reactor.run()
     
