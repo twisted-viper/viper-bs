@@ -21,31 +21,31 @@ class ViperLogger():
     
     def getTimeStame(self):
         now = time.localtime()
-        timeStr = time.strftime('%Y-%m-%d %H:%M:%S', now)
-        return '[' + timeStr + '] '
+        timeStr = time.strftime('%Y-%m-%d %H:%M:%S', now) + ' '
+        return  timeStr
   
     def error(self, msg):
-        outputMsg = self.getTimeStame() + "ERROR: " + msg
+        outputMsg = "[ERROR]\t" + self.getTimeStame() + msg
         print outputMsg
         self.VIPER_LOGGER.error(outputMsg)
         
     def critical(self, msg):
-        outputMsg = self.getTimeStame() + "CRITIAL: " + msg
+        outputMsg = "[CRITIAL]\t" + self.getTimeStame() + msg
         print outputMsg
         self.VIPER_LOGGER.critical(outputMsg)
         
     def warning(self, msg):
-        outputMsg = self.getTimeStame() + "WARNING: " + msg
+        outputMsg = "[WARNING]\t" + self.getTimeStame() + msg
         print outputMsg
         self.VIPER_LOGGER.warning(outputMsg)
         
     def debug(self, msg):
-        outputMsg = self.getTimeStame() + "DEBUG: " + msg
+        outputMsg = "[DEBUG]\t" + self.getTimeStame() + msg
         print outputMsg
         self.VIPER_LOGGER.debug(outputMsg)
     
     def info(self, msg):
-        outputMsg = self.getTimeStame() + "INFO: " + msg
+        outputMsg = "[INFO]\t" + self.getTimeStame() + msg
         print outputMsg
         self.VIPER_LOGGER.info(outputMsg)
         
