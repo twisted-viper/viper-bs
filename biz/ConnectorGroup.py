@@ -46,6 +46,7 @@ class ConnectorGroup():
             connectorServer = self.connectorDic[key]
             nowTime = time.time()
             if not connectorServer.isActive or nowTime - connectorServer.getPingTime() > CHECK_CONNECTOR_SERVER_INTERVAL:
+                logger.debug('Kill no response connector server:' + connectorServer.getName())
                 connectorServer.closeConnecton()
                 
         reactor.callLater(CHECK_CONNECTOR_SERVER_INTERVAL, self.checkConnectorServerStatus)

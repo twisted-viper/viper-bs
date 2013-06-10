@@ -13,7 +13,8 @@ class ConnectorServer():
     def __init__(self, protocol):
         self.protocol = protocol
         self.isActive = False
-        self.pingTime = 0;
+        self.pingTime = 0
+        self.name = ''
         
     def sendMessage(self, msg):
         logger.debug('Seng Message ' + msg)
@@ -30,6 +31,12 @@ class ConnectorServer():
     
     def setActive(self, active):
         self.isActive = active
+        
+    def setName(self, name):
+        self.name = name
+    
+    def getName(self):
+        return self.name
     
     def closeConnecton(self):
         self.protocol.transport.loseConnection()

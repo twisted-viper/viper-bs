@@ -14,6 +14,7 @@ group = ConnectorGroup.getGroup()
 def connectorInit(connectorId, message):
     connectorServer = group.getConnectorServer(connectorId)
     connectorServer.setActive(True)
+    connectorServer.setName(message['connector']['name'])
     connectorInitMessage = {}
     connectorInitMessage['name'] = 'connector-init'
     connectorServer.sendMessage(json.dumps(connectorInitMessage))
