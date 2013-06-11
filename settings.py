@@ -7,6 +7,8 @@ Created on May 24, 2013
 import logging
 import os
 
+DEBUG = True 
+
 SERVER_PORT = 55024
 SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 
