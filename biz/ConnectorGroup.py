@@ -15,13 +15,11 @@ class ConnectorGroup():
     inst = None
     def __init__(self):
         self.connectorDic = {}
-        self.connectorSize = 0
     
     def addConnectorServer(self, connector):
         if not self.connectorDic.has_key(connector.getId()):
             self.connectorDic[connector.getId()] = connector
-            self.connectorSize = self.connectorSize + 1
-        
+      
     def getConnectorServer(self, connectorServerId):
         if self.connectorDic.has_key(connectorServerId):
             return self.connectorDic[connectorServerId]
@@ -30,12 +28,28 @@ class ConnectorGroup():
     def delConnectorServer(self, connectorId):
         if self.connectorDic.has_key(connectorId):
             del self.connectorDic[connectorId]
-            self.connectorSize = self.connectorSize - 1
         else:
             logger.error("Delete ungrouped connector!")
     
     def getConnectorServerSize(self):
-        return self.connectorSize
+        return len(self.connectorDic.keys())
+    
+    def getNextAvailableConnector(self):
+        '''
+                    根据负载获取最合适的connector server
+        '''
+        minClientCount = 0
+        connector = None
+        for key in self.connectorDic.keys():
+            if connector == None:
+                connector = self.connectorDic[key]
+                minClientCount = connector.getClientCount()
+                
+            tempCount = connector.getClientCount()  
+            if minClientCount > tempCount:
+                minClientCount = tempCount
+                connector = self.connectorDic[key]
+        return connector
     
     def broadcast(self):
         pass

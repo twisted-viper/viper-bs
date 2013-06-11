@@ -15,10 +15,17 @@ class ConnectorServer():
         self.isActive = False
         self.pingTime = 0
         self.name = ''
+        self.clientCount = 0
         
     def sendMessage(self, msg):
         logger.debug('Seng Message ' + msg)
         self.protocol.sendLine(msg)
+        
+    def setClientCount(self,count):
+        self.clientCount = count
+        
+    def getClientCount(self):
+        return self.clientCount
         
     def setPingTime(self):
         self.pingTime = time.time()

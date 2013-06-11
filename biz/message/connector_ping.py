@@ -13,4 +13,5 @@ group = ConnectorGroup.getGroup()
 
 def connectorPing(connectorId, message):
     connectorServer = group.getConnectorServer(connectorId)
+    connectorServer.setClientCount(message['connector']['clientCount'])
     connectorServer.setPingTime()
