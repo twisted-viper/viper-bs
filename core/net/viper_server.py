@@ -7,6 +7,7 @@ Created on May 24, 2013
 
 
 from biz.ConnectorGroup import ConnectorGroup
+from biz.ProtocolGroup import ProtocolGroup
 from core.net.viper_callback import onViperBalanceServerRunning, \
     onConectorConnectionMade, onConectorConnectionLost, onLineReceived
 from log.viper_log import ViperLogger
@@ -58,10 +59,12 @@ class ViperBalanceServer():
         
     def start(self):
         group = ConnectorGroup.getGroup()
+        protocolGroup = ProtocolGroup.getInstance()
         logger = ViperLogger.getLogger()
         logger.info('Viper Balance Server selector type:' + str(type(reactor)))
         reactor.listenTCP(SERVER_PORT, ViperBalanceServerFactory())
         reactor.callWhenRunning(onViperBalanceServerRunning)
         reactor.callWhenRunning(group.checkConnectorServerStatus)
+        reactor.callWhenRunning(protocolGroup.checkProtocolStatus)
         reactor.run()
     

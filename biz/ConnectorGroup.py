@@ -29,8 +29,6 @@ class ConnectorGroup():
     def delConnectorServer(self, connectorId):
         if self.connectorDic.has_key(connectorId):
             del self.connectorDic[connectorId]
-        else:
-            logger.error("Delete ungrouped connector!")
     
     def getConnectorServerSize(self):
         return len(self.connectorDic.keys())

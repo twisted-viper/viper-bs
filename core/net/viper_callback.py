@@ -6,6 +6,7 @@ Created on 2013-5-26
 from biz.ConnectorGroup import ConnectorGroup
 from biz.ConnectorServer import ConnectorServer
 from biz.MessageFactory import MESSAGE_ACTION
+from biz.ProtocolGroup import ProtocolGroup
 from log.viper_log import ViperLogger
 import json
 
@@ -18,12 +19,14 @@ def onViperBalanceServerRunning():
     logger.debug('Viper Balance Server Started')
     
 def onConectorConnectionMade(protocol): 
-    logger.debug('Conector connection made')
+    logger.debug('Connection made ' + str(protocol.transport.getPeer()))
+    ProtocolGroup.getInstance().addProtocol(protocol)
 
 def onConectorConnectionLost(protocol, reason):
     connectorId = str(protocol.transport.getPeer())
     group.delConnectorServer(connectorId)
-    logger.debug('Conector connection lost ' + connectorId)
+    ProtocolGroup.getInstance().removeProtocol(protocol)
+    logger.debug('Connector connection lost ' + connectorId)
     
 def onLineReceived(protocol, line):
     logger.debug('Message Received ' + line)
