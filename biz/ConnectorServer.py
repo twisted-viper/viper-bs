@@ -12,6 +12,7 @@ class ConnectorServer():
     
     def __init__(self, protocol):
         self.protocol = protocol
+        self.ip = protocol.transport.getHost().host
         self.isActive = False
         self.pingTime = 0
         self.name = ''
@@ -44,6 +45,9 @@ class ConnectorServer():
     
     def getName(self):
         return self.name
+    
+    def getIP(self):
+        return self.ip
     
     def closeConnecton(self):
         self.protocol.transport.loseConnection()

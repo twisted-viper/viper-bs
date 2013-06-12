@@ -18,9 +18,7 @@ def onViperBalanceServerRunning():
     logger.debug('Viper Balance Server Started')
     
 def onConectorConnectionMade(protocol): 
-    connectorServer = ConnectorServer(protocol)
-    group.addConnectorServer(connectorServer)
-    logger.debug('Conector connection made ' + connectorServer.getId())
+    logger.debug('Conector connection made')
 
 def onConectorConnectionLost(protocol, reason):
     connectorId = str(protocol.transport.getPeer())
@@ -30,11 +28,10 @@ def onConectorConnectionLost(protocol, reason):
 def onLineReceived(protocol, line):
     logger.debug('Message Received ' + line)
     message = json.loads(line)
-    connectorId = str(protocol.transport.getPeer())
     messageParse = MESSAGE_ACTION.get(message['name'])
     if messageParse == None:
         logger.error('Unrecognized message received ' + message['name'])
         protocol.transport.loseConnection()
     else:
-        messageParse(connectorId, message)
+        messageParse(protocol, message)
     

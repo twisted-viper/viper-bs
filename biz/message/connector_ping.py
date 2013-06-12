@@ -11,7 +11,8 @@ from log.viper_log import ViperLogger
 logger = ViperLogger.getLogger()
 group = ConnectorGroup.getGroup()
 
-def connectorPing(connectorId, message):
+def connectorPing(protocol, message):
+    connectorId = str(protocol.transport.getPeer())
     connectorServer = group.getConnectorServer(connectorId)
     connectorServer.setClientCount(message['connector']['clientCount'])
     connectorServer.setPingTime()
